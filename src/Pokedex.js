@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CurrentPokemon } from "./CurrentPokemon";
+import { Pagination } from "./Pagination";
 
 export const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -26,27 +27,31 @@ export const Pokedex = () => {
   return (
     <>
       {loading && <h4>LOADING</h4>}
-      {currentPokemon && <CurrentPokemon currentPokemon={currentPokemon} />}
-      {!currentPokemon && (
-        <>
-          {pokemons.map((pokemon) => (
-            <div key={pokemon.name}>
-              <button onClick={() => setCurrentPokemon(pokemon.url)}>
-                {pokemon.name}
-              </button>
-            </div>
-          ))}
-
-          {prevPage !== null && (
-            <button onClick={() => setCurrentPageUrl(prevPage)}>
-              Previous
-            </button>
-          )}
-          {nextPage !== null && (
-            <button onClick={() => setCurrentPageUrl(nextPage)}>Next</button>
-          )}
-        </>
+      {currentPokemon && !loading && (
+        <CurrentPokemon
+          currentPokemon={currentPokemon}
+          setCurrentPokemon={setCurrentPokemon}
+        />
       )}
+      {!currentPokemon && !loading && (
+        <section>
+          {pokemons.map((pokemon) => (
+            <button
+              key={pokemon.name}
+              onClick={() => setCurrentPokemon(pokemon.url)}
+            >
+              {pokemon.name}
+            </button>
+          ))}
+        </section>
+      )}
+
+      <Pagination
+        currentPokemon={currentPokemon}
+        prevPage={prevPage}
+        nextPage={nextPage}
+        setCurrentPageUrl={setCurrentPageUrl}
+      />
     </>
   );
 };
