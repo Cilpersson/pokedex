@@ -2,6 +2,35 @@ import React, { useEffect, useState } from "react";
 import { CurrentPokemon } from "./CurrentPokemon";
 import { Pagination } from "./Pagination";
 import { Loader } from "./Loader";
+import styled from "styled-components/macro";
+
+const PokemonButton = styled.button`
+  background: none;
+  border: 1px solid black;
+  width: 8rem;
+  padding: 0.5rem;
+  margin: 0 auto;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Section = styled.section`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  grid-auto-rows: 3rem;
+  max-width: 30rem;
+  margin: auto;
+  gap: 0.5rem;
+`;
+
+const Title = styled.img`
+  width: 100%;
+  max-width: 40rem;
+  margin: 2rem auto;
+  display: block;
+`;
 
 export const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -18,6 +47,7 @@ export const Pokedex = () => {
     fetch(currentPageUrl)
       .then((res) => res.json())
       .then((json) => {
+        console.log(json);
         setLoading(false);
         setPokemons(json.results);
         setNextPage(json.next);
@@ -27,6 +57,11 @@ export const Pokedex = () => {
 
   return (
     <>
+      <Title
+        src="https://fontmeme.com/permalink/200702/fadb68e47232ec9709ca82d9e274a4a6.png"
+        alt="Pokemon written in pokemon font"
+        border="0"
+      />
       <Loader loading={loading} />
       {currentPokemon && !loading && (
         <CurrentPokemon
@@ -35,16 +70,18 @@ export const Pokedex = () => {
         />
       )}
       {!currentPokemon && !loading && (
-        <section>
+        <Section>
           {pokemons.map((pokemon) => (
-            <button
+            <PokemonButton
               key={pokemon.name}
               onClick={() => setCurrentPokemon(pokemon.url)}
             >
-              {pokemon.name}
-            </button>
+              <div>
+                {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+              </div>
+            </PokemonButton>
           ))}
-        </section>
+        </Section>
       )}
 
       <Pagination

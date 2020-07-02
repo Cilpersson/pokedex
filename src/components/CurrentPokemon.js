@@ -1,4 +1,23 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components/macro";
+
+const WrapperCol = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
+
+const WrapperRow = styled.section`
+  display: flex;
+  justify-content: center;
+`;
+
+const CurrentPokemonName = styled.h2`
+  text-align: center;
+`;
+
+const CurrentPokemonInfo = styled.h3`
+  text-align: right;
+`;
 
 export const CurrentPokemon = ({ currentPokemon, setCurrentPokemon }) => {
   const [pokemon, setPokemon] = useState({});
@@ -36,13 +55,21 @@ export const CurrentPokemon = ({ currentPokemon, setCurrentPokemon }) => {
       </button>
       {pokemon.name && !back && (
         <>
-          <h2>
+          <CurrentPokemonName>
             {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-          </h2>
-          <img src={sprites.front_default} alt={pokemon.name}></img>
-          <h3>_id: {pokemon.id}</h3>
-          <h3>Height: {heightFormat(pokemon.height)}</h3>
-          <h3>Weight: {weightFormat(pokemon.weight)}</h3>
+          </CurrentPokemonName>
+          <WrapperRow>
+            <img src={sprites.front_default} alt={pokemon.name} />
+            <WrapperCol>
+              <CurrentPokemonInfo>_id: {pokemon.id}</CurrentPokemonInfo>
+              <CurrentPokemonInfo>
+                Height: {heightFormat(pokemon.height)}
+              </CurrentPokemonInfo>
+              <CurrentPokemonInfo>
+                Weight: {weightFormat(pokemon.weight)}
+              </CurrentPokemonInfo>
+            </WrapperCol>
+          </WrapperRow>
         </>
       )}
     </section>
