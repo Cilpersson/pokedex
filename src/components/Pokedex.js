@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CurrentPokemon } from "./CurrentPokemon";
 import { Pagination } from "./Pagination";
+import { Loader } from "./Loader";
 
 export const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -26,7 +27,7 @@ export const Pokedex = () => {
 
   return (
     <>
-      {loading && <h4>LOADING</h4>}
+      <Loader loading={loading} />
       {currentPokemon && !loading && (
         <CurrentPokemon
           currentPokemon={currentPokemon}
