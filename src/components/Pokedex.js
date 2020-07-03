@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CurrentPokemon } from "./CurrentPokemon";
 import { Pagination } from "./Pagination";
 import { Loader } from "./Loader";
+import { Search } from "./Search";
 import styled from "styled-components/macro";
 
 const PokemonButton = styled.button`
@@ -90,6 +91,7 @@ export const Pokedex = () => {
         nextPage={nextPage}
         setCurrentPageUrl={setCurrentPageUrl}
       />
+      <Search />
     </>
   );
 };
