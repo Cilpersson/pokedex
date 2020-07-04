@@ -66,14 +66,83 @@ const Section = styled.section`
 `;
 
 const PokemonImg = styled.img`
+  position: relative;
+  border-radius: 0.2rem;
+
   background-color: #b0bf2d;
   background-size: 4px 4px;
   background-image: linear-gradient(to right, grey 1px, transparent 1px),
     linear-gradient(to bottom, grey 1px, transparent 1px);
+  background-image: linear-gradient(
+      to right,
+      #464d1245 0.04rem,
+      transparent 0.04rem
+    ),
+    linear-gradient(to bottom, #464d1245 0.04rem, transparent 0.04rem);
+  border: 1rem solid lightgrey;
+
+  clip-path: polygon(
+    100% 0,
+    100% 100%,
+    100% 100%,
+    13% 100%,
+    8% 96%,
+    5% 93%,
+    3% 91%,
+    0% 87%,
+    0% 100%,
+    0% 0%
+  );
 `;
 
 const Pokedex = styled.section`
   background-color: #d60a2d;
+  border-radius: 0.01rem;
+  overflow: hidden;
+  padding: 1rem;
+  border: 0.4rem double #ab0824;
+  box-shadow: 0 0 0 0.5rem #d60a2d;
+  width: 18rem;
+`;
+
+const Dot = styled.div`
+  background-color: #d60a2d;
+  height: 0.5rem;
+  width: 0.5rem;
+  position: absolute;
+  border-radius: 50%;
+
+  display: flex;
+  background-color: #d60a2d;
+  height: 0.5rem;
+  width: 0.5rem;
+  position: absolute;
+  border-radius: 50%;
+  z-index: 100;
+  align-self: flex-end;
+`;
+
+const PokedexRight = styled.section`
+  clip-path: polygon(
+    35% 1%,
+    55% 15%,
+    56% 16%,
+    100% 16%,
+    100% 100%,
+    50% 100%,
+    0 100%,
+    0% 70%,
+    0 0,
+    32% 0
+  );
+  background-color: #d60a2d;
+  border-radius: 0.01rem;
+  overflow: hidden;
+  padding: 1rem;
+  border: 0.4rem double #ab0824;
+  box-shadow: 0 0 0 0.5rem #d60a2d;
+  width: 18rem;
+  height: 25rem;
 `;
 
 export const CurrentPokemon = ({
@@ -126,23 +195,27 @@ export const CurrentPokemon = ({
       </Button>
 
       {pokemon.name && !back && !loading && (
-        <Pokedex>
-          <CurrentPokemonName>
-            {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-          </CurrentPokemonName>
-          <WrapperRow>
-            <WrapperCol>
-              <CurrentPokemonInfo>_id: {pokemon.id}</CurrentPokemonInfo>
-              <CurrentPokemonInfo>
-                Height: {heightFormat(pokemon.height)}
-              </CurrentPokemonInfo>
-              <CurrentPokemonInfo>
-                Weight: {weightFormat(pokemon.weight)}
-              </CurrentPokemonInfo>
-            </WrapperCol>{" "}
+        <WrapperRow>
+          <Pokedex>
+            <Dot />
             <PokemonImg src={sprites.front_default} alt={pokemon.name} />
-          </WrapperRow>
-        </Pokedex>
+            <WrapperCol>
+              <CurrentPokemonName>
+                {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+              </CurrentPokemonName>
+              <WrapperCol>
+                <CurrentPokemonInfo>_id: {pokemon.id}</CurrentPokemonInfo>
+                <CurrentPokemonInfo>
+                  Height: {heightFormat(pokemon.height)}
+                </CurrentPokemonInfo>
+                <CurrentPokemonInfo>
+                  Weight: {weightFormat(pokemon.weight)}
+                </CurrentPokemonInfo>
+              </WrapperCol>
+            </WrapperCol>
+          </Pokedex>
+          <PokedexRight></PokedexRight>
+        </WrapperRow>
       )}
       {loading && <Loader />}
     </Section>
