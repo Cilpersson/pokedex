@@ -66,6 +66,7 @@ const TitleImg = styled.img`
   max-width: 40rem;
   margin: 2rem auto;
   display: block;
+  filter: drop-shadow(0 0 0.75rem #356abd98);
 `;
 
 const Title = styled.h1`
@@ -103,13 +104,17 @@ export const Pokedex = () => {
         alt="Pokemon written in pokemon font"
         border="0"
       />
-      <Title>SEARCH OR CLICK</Title>
-      <Wrapper>
-        <Search
-          currentPokemon={currentPokemon}
-          setCurrentPokemon={setCurrentPokemon}
-        />
-      </Wrapper>
+      {!currentPokemon && !loading && (
+        <>
+          <Title>SEARCH OR CLICK</Title>
+          <Wrapper>
+            <Search
+              currentPokemon={currentPokemon}
+              setCurrentPokemon={setCurrentPokemon}
+            />
+          </Wrapper>
+        </>
+      )}
       <Loader loading={loading} />
       {currentPokemon && (
         <CurrentPokemon

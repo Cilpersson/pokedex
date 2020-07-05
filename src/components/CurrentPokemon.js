@@ -5,6 +5,13 @@ import { Loader } from "./Loader";
 const WrapperCol = styled.section`
   display: flex;
   flex-direction: column;
+  /* z-index: 100;
+  position: absolute; */
+`;
+
+const WrapperColAbs = styled(WrapperCol)`
+  z-index: 100;
+  position: absolute;
 `;
 
 const WrapperRow = styled.section`
@@ -18,6 +25,8 @@ const CurrentPokemonName = styled.h2`
 
 const CurrentPokemonInfo = styled.h3`
   text-align: left;
+  display: block;
+  margin: 0 0.2rem;
 `;
 
 const Button = styled.button`
@@ -66,43 +75,35 @@ const Section = styled.section`
 `;
 
 const PokemonImg = styled.img`
-  position: relative;
-  border-radius: 0.2rem;
-
-  background-color: #b0bf2d;
-  background-size: 4px 4px;
-  background-image: linear-gradient(to right, grey 1px, transparent 1px),
-    linear-gradient(to bottom, grey 1px, transparent 1px);
-  background-image: linear-gradient(
-      to right,
-      #464d1245 0.04rem,
-      transparent 0.04rem
-    ),
-    linear-gradient(to bottom, #464d1245 0.04rem, transparent 0.04rem);
-  border: 1rem solid lightgrey;
-
-  clip-path: polygon(
-    100% 0,
-    100% 100%,
-    100% 100%,
-    13% 100%,
-    8% 96%,
-    5% 93%,
-    3% 91%,
-    0% 87%,
-    0% 100%,
-    0% 0%
-  );
+  display: block;
+  margin: auto;
+  width: 55%;
+  filter: drop-shadow(0 0 0.75rem #24270980);
 `;
 
 const Pokedex = styled.section`
-  background-color: #d60a2d;
+  background-image: linear-gradient(to left, #b5102c, #d60a2d 37%, #f10d34);
   border-radius: 0.01rem;
   overflow: hidden;
-  padding: 1rem;
-  border: 0.4rem double #ab0824;
-  box-shadow: 0 0 0 0.5rem #d60a2d;
+  padding: 1.5rem;
   width: 18rem;
+  height: 25rem;
+  flex-direction: column;
+  display: flex;
+  justify-content: flex-end;
+
+  &::before {
+    /* content: "";
+    background: blue; */
+    /* background-image: linear-gradient(to right, #b5102c, #d60a2d 4%, #f10d34); */
+    /* overflow: hidden;
+    padding: -0.5rem;
+    width: 18rem;
+    height: 25rem;
+    position: absolute;
+
+    background-position: center; */
+  }
 `;
 
 const Dot = styled.div`
@@ -135,14 +136,97 @@ const PokedexRight = styled.section`
     0 0,
     32% 0
   );
-  background-color: #d60a2d;
+  background-image: linear-gradient(to right, #b5102c, #d60a2d 4%, #f10d34);
   border-radius: 0.01rem;
   overflow: hidden;
-  padding: 1rem;
-  border: 0.4rem double #ab0824;
-  box-shadow: 0 0 0 0.5rem #d60a2d;
+  padding: 1.5rem;
   width: 18rem;
   height: 25rem;
+  position: relative;
+  background: #b5102c;
+
+  &::before {
+    content: "";
+    clip-path: polygon(
+      35% 1%,
+      55% 15%,
+      56% 16%,
+      100% 16%,
+      100% 100%,
+      50% 100%,
+      0 100%,
+      0% 70%,
+      0 0,
+      32% 0
+    );
+    background-image: linear-gradient(to right, #b5102c, #d60a2d 4%, #f10d34);
+    overflow: hidden;
+    padding: -0.5rem;
+    width: 98%;
+    height: 97%;
+    position: absolute;
+    top: 6px;
+    left: 1px;
+    background-position: center;
+  }
+`;
+
+const PokedexCenter = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 1.5rem 0;
+
+  background-color: #d60a2d;
+  width: 1.5rem;
+  border-left: 0.1rem solid #a50f2880;
+  border-right: 0.1rem solid #a50f2880;
+  background-image: linear-gradient(
+    to right,
+    #b5102c,
+    #d60a2d 30%,
+    #f92045 50%,
+    #d60a2d 70%,
+    #b5102c
+  );
+`;
+
+const Display = styled.div`
+  display: flex;
+  background-color: #b0bf2d;
+  box-shadow: inset 0 0 0.5rem 0.2rem #6a731c;
+  background-size: 4px 4px;
+  background-image: linear-gradient(to right, grey 1px, transparent 1px),
+    linear-gradient(to bottom, grey 1px, transparent 1px);
+  background-image: linear-gradient(
+      to right,
+      #464d1245 0.04rem,
+      transparent 0.04rem
+    ),
+    linear-gradient(to bottom, #464d1245 0.04rem, transparent 0.04rem);
+  border: 1rem solid lightgrey;
+  border-width: 1rem 1rem 2rem 1rem;
+  margin: 0 auto 1rem;
+  width: 100%;
+  height: 13rem;
+  clip-path: polygon(100% 0, 100% 100%, 14% 100%, 0 84%, 0 0);
+`;
+
+const Filler = styled.div`
+  height: 3.5rem;
+`;
+
+const Curve = styled.div`
+  border-top: 0.1rem solid #b5102c;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 0.5rem;
+  margin: 0.1rem 0;
+`;
+
+const DisplayWrap = styled.div`
+  filter: drop-shadow(6px 6px 6px #650919);
 `;
 
 export const CurrentPokemon = ({
@@ -166,6 +250,7 @@ export const CurrentPokemon = ({
           throw new Error(`Could not get pokemon`);
         })
         .then((json) => {
+          console.log(json);
           setPokemon(json);
           setSprites(json.sprites);
           setLoading(false);
@@ -183,6 +268,26 @@ export const CurrentPokemon = ({
     return height / 10 + "m";
   };
 
+  const textFact = (wordOrWords) => {
+    let popularWord = "";
+    wordOrWords.forEach((word, index) => {
+      if (wordOrWords.length - index === 1) {
+        popularWord += ` ${
+          word.type.name.charAt(0).toUpperCase() + word.type.name.slice(1)
+        }`;
+      } else if (wordOrWords.length - index > 2) {
+        popularWord += ` ${
+          word.type.name.charAt(0).toUpperCase() + word.type.name.slice(1)
+        }, `;
+      } else {
+        popularWord += ` ${
+          word.type.name.charAt(0).toUpperCase() + word.type.name.slice(1)
+        } & `;
+      }
+    });
+    return popularWord;
+  };
+
   return (
     <Section>
       <Button
@@ -193,28 +298,46 @@ export const CurrentPokemon = ({
       >
         Back
       </Button>
-
       {pokemon.name && !back && !loading && (
         <WrapperRow>
           <Pokedex>
-            <Dot />
-            <PokemonImg src={sprites.front_default} alt={pokemon.name} />
+            <DisplayWrap>
+              <Display>
+                <PokemonImg src={sprites.front_default} alt={pokemon.name} />
+              </Display>
+            </DisplayWrap>
+            <WrapperRow>
+              <CurrentPokemonInfo>
+                {pokemon.types.length > 1 ? "Types: " : "Type: "}
+              </CurrentPokemonInfo>
+              <CurrentPokemonInfo>{textFact(pokemon.types)}</CurrentPokemonInfo>
+            </WrapperRow>
+          </Pokedex>
+          <PokedexCenter>
             <WrapperCol>
+              <Curve />
+              <Curve />
+            </WrapperCol>
+            <WrapperCol>
+              <Curve />
+              <Curve />
+            </WrapperCol>
+          </PokedexCenter>
+          <PokedexRight>
+            <WrapperColAbs>
+              <Filler></Filler>
               <CurrentPokemonName>
                 {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
               </CurrentPokemonName>
-              <WrapperCol>
-                <CurrentPokemonInfo>_id: {pokemon.id}</CurrentPokemonInfo>
-                <CurrentPokemonInfo>
-                  Height: {heightFormat(pokemon.height)}
-                </CurrentPokemonInfo>
-                <CurrentPokemonInfo>
-                  Weight: {weightFormat(pokemon.weight)}
-                </CurrentPokemonInfo>
-              </WrapperCol>
-            </WrapperCol>
-          </Pokedex>
-          <PokedexRight></PokedexRight>
+              <CurrentPokemonInfo>_id: {pokemon.id}</CurrentPokemonInfo>
+              <CurrentPokemonInfo>
+                Height: {heightFormat(pokemon.height)}
+              </CurrentPokemonInfo>
+              <CurrentPokemonInfo>
+                Weight: {weightFormat(pokemon.weight)}
+              </CurrentPokemonInfo>
+            </WrapperColAbs>
+          </PokedexRight>
         </WrapperRow>
       )}
       {loading && <Loader />}
