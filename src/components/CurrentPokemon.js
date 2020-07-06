@@ -91,7 +91,6 @@ const Pokedex = styled.section`
   flex-direction: column;
   display: flex;
   justify-content: flex-end;
-
   &::before {
     /* content: "";
     background: blue; */
@@ -104,23 +103,6 @@ const Pokedex = styled.section`
 
     background-position: center; */
   }
-`;
-
-const Dot = styled.div`
-  background-color: #d60a2d;
-  height: 0.5rem;
-  width: 0.5rem;
-  position: absolute;
-  border-radius: 50%;
-
-  display: flex;
-  background-color: #d60a2d;
-  height: 0.5rem;
-  width: 0.5rem;
-  position: absolute;
-  border-radius: 50%;
-  z-index: 100;
-  align-self: flex-end;
 `;
 
 const PokedexRight = styled.section`
